@@ -1,0 +1,488 @@
+/* All rules are scoped under .lolgen so the widget can be dropped into any page
+   (e.g. a WordPress post) without affecting, or being affected by, the theme. */
+
+.lolgen {
+  --bg: #010a13;
+  --panel: #0a1428;
+  --panel-deep: #091018;
+  --line: #1e2328;
+  --gold: #c8aa6e;
+  --gold-dark: #785a28;
+  --gold-bright: #f0e6d2;
+  --teal: #0ac8b9;
+  --teal-dark: #005a82;
+  --text: #a09b8c;
+  --text-bright: #f0e6d2;
+  --heading: "Cinzel", serif;
+  --body: "Spectral", serif;
+
+  position: relative;
+  margin: 0;
+  min-height: 420px;
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text);
+  background:
+    radial-gradient(1100px 520px at 50% -120px, #0c1f33 0%, transparent 70%),
+    radial-gradient(900px 480px at 85% 110%, rgba(0, 90, 130, 0.25) 0%, transparent 65%),
+    var(--bg);
+}
+
+.lolgen, .lolgen * { box-sizing: border-box; }
+
+/* ---------- header ---------- */
+
+.lolgen .gen-header {
+  text-align: center;
+  padding: 56px 16px 8px;
+}
+
+.lolgen .eyebrow {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.lolgen h1 {
+  margin: 10px 0 6px;
+  padding: 0;
+  border: none;
+  font-family: var(--heading);
+  font-weight: 700;
+  font-size: clamp(28px, 5vw, 48px);
+  letter-spacing: 2px;
+  background: linear-gradient(180deg, var(--gold-bright) 20%, var(--gold) 60%, var(--gold-dark));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lolgen .tagline {
+  margin: 0;
+  font-style: italic;
+  color: var(--text);
+}
+
+/* ---------- layout / panels ---------- */
+
+.lolgen .gen-main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+.lolgen .panel {
+  border: 1px solid var(--gold-dark);
+  background: linear-gradient(180deg, var(--panel), var(--panel-deep));
+  box-shadow: inset 0 1px 0 rgba(240, 230, 210, 0.06), 0 10px 30px rgba(0, 0, 0, 0.45);
+  padding: 22px 24px;
+  margin-bottom: 26px;
+}
+
+.lolgen .control-group h2,
+.lolgen .history-head h2 {
+  margin: 0 0 10px;
+  padding: 0;
+  border: none;
+  font-family: var(--body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.lolgen .controls > .control-group + .control-group { margin-top: 20px; }
+
+.lolgen .control-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px 28px;
+  margin-top: 20px;
+}
+
+/* ---------- chips ---------- */
+
+.lolgen .chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lolgen .chip {
+  font-family: var(--body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text);
+  background: rgba(1, 10, 19, 0.5);
+  border: 1px solid var(--gold-dark);
+  border-radius: 0;
+  box-shadow: none;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s, box-shadow 0.15s;
+}
+
+.lolgen .chip:hover {
+  color: var(--text-bright);
+  border-color: var(--gold);
+}
+
+.lolgen .chip.on {
+  color: #0a1428;
+  background: linear-gradient(180deg, var(--gold-bright), var(--gold) 70%);
+  border-color: var(--gold-bright);
+  box-shadow: 0 0 12px rgba(200, 170, 110, 0.35);
+}
+
+.lolgen .chip.all { margin-right: 8px; }
+
+.lolgen .chip.all.on {
+  background: linear-gradient(180deg, #a5f3ec, var(--teal) 70%);
+  border-color: #c9faf5;
+  box-shadow: 0 0 12px rgba(10, 200, 185, 0.4);
+}
+
+.lolgen .seg .chip { min-width: 44px; text-align: center; }
+
+/* ---------- toggles ---------- */
+
+.lolgen .toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 32px;
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.lolgen .toggle {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.lolgen .toggle:hover { color: var(--text-bright); }
+
+.lolgen .toggle input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--gold);
+  cursor: pointer;
+}
+
+/* ---------- spin button ---------- */
+
+.lolgen .spin-zone {
+  text-align: center;
+  margin: 34px 0 30px;
+}
+
+.lolgen #spinBtn {
+  font-family: var(--heading);
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  text-indent: 8px; /* visually re-centers letter-spaced text */
+  color: #0a1428;
+  width: min(420px, 100%);
+  padding: 18px 10px;
+  cursor: pointer;
+  border: 1px solid rgba(240, 230, 210, 0.7);
+  border-radius: 0;
+  background: linear-gradient(180deg, var(--gold-bright), var(--gold) 45%, var(--gold-dark));
+  box-shadow: 0 0 28px rgba(200, 170, 110, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transition: filter 0.15s, box-shadow 0.15s, transform 0.05s;
+}
+
+.lolgen #spinBtn:hover:not(:disabled) {
+  filter: brightness(1.12);
+  box-shadow: 0 0 40px rgba(200, 170, 110, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.lolgen #spinBtn:active:not(:disabled) { transform: translateY(2px); }
+
+.lolgen #spinBtn:disabled {
+  filter: grayscale(0.7) brightness(0.6);
+  cursor: not-allowed;
+}
+
+.lolgen #spinBtn.shake { animation: lolgen-shake 0.4s; }
+
+@keyframes lolgen-shake {
+  20% { transform: translateX(-7px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(3px); }
+}
+
+.lolgen #statusMsg {
+  min-height: 1.4em;
+  margin: 14px 0 0;
+  font-style: italic;
+  color: var(--gold);
+}
+
+/* ---------- result cards ---------- */
+
+.lolgen .results {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.lolgen .card {
+  width: 230px;
+  border: 1px solid var(--gold-dark);
+  background: var(--panel-deep);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+.lolgen .results[data-count="1"] .card { width: 290px; }
+
+.lolgen .card-art {
+  aspect-ratio: 308 / 430;
+  overflow: hidden;
+  border-bottom: 1px solid var(--gold-dark);
+  background: radial-gradient(closest-side, #122c44, var(--panel-deep));
+}
+
+.lolgen .card-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+
+/* spinning state */
+
+.lolgen .spin-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.lolgen .spin-stage .spin-icon {
+  width: 110px;
+  height: 110px;
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 22px rgba(10, 200, 185, 0.35);
+  animation: lolgen-pulse 1s infinite alternate;
+}
+
+@keyframes lolgen-pulse {
+  from { box-shadow: 0 0 12px rgba(10, 200, 185, 0.25); }
+  to   { box-shadow: 0 0 30px rgba(10, 200, 185, 0.6); }
+}
+
+.lolgen .spin-stage .spin-name {
+  margin: 0;
+  font-family: var(--heading);
+  font-size: 17px;
+  color: var(--gold-bright);
+  text-align: center;
+  padding: 0 10px;
+}
+
+/* revealed state */
+
+.lolgen .card.revealed { animation: lolgen-reveal 0.5s ease-out; }
+
+@keyframes lolgen-reveal {
+  from {
+    transform: scale(0.95);
+    filter: brightness(2.2) saturate(0.2);
+    box-shadow: 0 0 50px rgba(200, 170, 110, 0.85);
+  }
+  to {
+    transform: scale(1);
+    filter: none;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.lolgen .card-info { padding: 14px 16px 16px; }
+
+.lolgen .card-info h3 {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-family: var(--heading);
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--gold-bright);
+}
+
+.lolgen .card-title {
+  margin: 2px 0 10px;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.lolgen .card-roles {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 3px;
+}
+
+.lolgen .card-tags {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 10px;
+}
+
+.lolgen .card-diff {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.lolgen .diff-bar {
+  flex: 1;
+  height: 6px;
+  background: var(--line);
+  border: 1px solid #2c3137;
+  overflow: hidden;
+}
+
+.lolgen .diff-bar i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--teal-dark), var(--teal));
+}
+
+/* ---------- history ---------- */
+
+.lolgen .history-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lolgen .history-head h2 { margin-bottom: 0; }
+
+.lolgen .ghost-btn {
+  font-family: var(--body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text);
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  box-shadow: none;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.lolgen .ghost-btn:hover { color: var(--text-bright); border-color: var(--gold-dark); }
+
+.lolgen .history {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.lolgen .history img {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--gold-dark);
+  display: block;
+  transition: transform 0.12s, border-color 0.12s;
+}
+
+.lolgen .history img:hover {
+  transform: scale(1.15);
+  border-color: var(--gold);
+}
+
+.lolgen .history-empty {
+  margin: 0;
+  font-style: italic;
+  font-size: 14px;
+}
+
+/* ---------- loader (covers the widget while data loads) ---------- */
+
+.lolgen #loader {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  background: rgba(1, 10, 19, 0.96);
+  transition: opacity 0.4s;
+}
+
+.lolgen #loader.hidden { opacity: 0; pointer-events: none; }
+
+.lolgen #loader p {
+  margin: 0;
+  font-style: italic;
+  color: var(--gold);
+  text-align: center;
+  padding: 0 20px;
+}
+
+.lolgen #loader .retry { margin-top: 4px; }
+
+.lolgen .hex-spinner {
+  width: 54px;
+  height: 54px;
+  border: 3px solid var(--gold-dark);
+  border-top-color: var(--gold-bright);
+  border-radius: 50%;
+  animation: lolgen-spin 0.9s linear infinite;
+}
+
+@keyframes lolgen-spin { to { transform: rotate(360deg); } }
+
+/* ---------- footer ---------- */
+
+.lolgen .gen-footer {
+  text-align: center;
+  font-size: 12.5px;
+  color: #5b5a56;
+  padding: 0 16px 40px;
+}
+
+.lolgen .gen-footer p { margin: 4px 0; }
+
+@media (max-width: 560px) {
+  .lolgen .panel { padding: 18px 16px; }
+  .lolgen .gen-header { padding-top: 36px; }
+  .lolgen .results[data-count="1"] .card { width: 250px; }
+}
