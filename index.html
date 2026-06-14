@@ -1,29 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1152589251291025"
-     crossorigin="anonymous"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Random LoL Champion Generator</title>
-  <meta name="description" content="Can't decide what to play? Spin the wheel and let fate pick your League of Legends champion. Filter by role, class and difficulty, choose your spin speed.">
+  <title>Random Champion &amp; Agent Generator — LoL + VALORANT</title>
+  <meta name="description" content="Can't decide what to play? Spin to let fate pick your League of Legends champion or VALORANT agent. Filter by role, class and difficulty, and choose your spin speed.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎲</text></svg>">
   <link rel="preconnect" href="https://ddragon.leagueoflegends.com">
+  <link rel="preconnect" href="https://media.valorant-api.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Spectral:ital,wght@0,400;0,600;1,400&family=Oswald:wght@500;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
     /* page chrome for the standalone version; the widget styles itself */
-    body { margin: 0; background: #010a13; }
-    #lol-generator { min-height: 100vh; }
+    body { margin: 0; background: #010a13; transition: background 0.3s; }
+    body[data-theme="t-lol"] { background: #010a13; }
+    body[data-theme="t-val"] { background: #0f1923; }
+    #lol-generator, #val-generator { min-height: calc(100vh - 53px); }
   </style>
 </head>
 <body>
 
+  <nav class="rcg-tabs" aria-label="Choose a game">
+    <button class="rcg-tab" data-target="lol-generator" data-theme="t-lol" aria-selected="true">League of Legends</button>
+    <button class="rcg-tab" data-target="val-generator" data-theme="t-val" aria-selected="false">VALORANT</button>
+  </nav>
+
   <div id="lol-generator"></div>
+  <div id="val-generator" hidden></div>
 
   <script src="roles.js"></script>
-  <script src="script.js"></script>
+  <script src="engine.js"></script>
+  <script src="lol.js"></script>
+  <script src="valorant.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

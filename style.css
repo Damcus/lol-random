@@ -1,21 +1,70 @@
-/* All rules are scoped under .lolgen so the widget can be dropped into any page
-   (e.g. a WordPress post) without affecting, or being affected by, the theme. */
+/* Structural rules live under .rcg and reference theme variables.
+   Each game sets those variables in its own block (.rcg.t-lol / .rcg.t-val),
+   so the markup is shared while League of Legends and VALORANT look distinct.
+   Everything is scoped so the widget can be dropped into any page (e.g. a
+   WordPress post) without affecting, or being affected by, the surrounding theme. */
 
-.lolgen {
+/* ============ themes ============ */
+
+.rcg.t-lol {
   --bg: #010a13;
+  --bg-image:
+    radial-gradient(1100px 520px at 50% -120px, #0c1f33 0%, transparent 70%),
+    radial-gradient(900px 480px at 85% 110%, rgba(0, 90, 130, 0.25) 0%, transparent 65%);
   --panel: #0a1428;
   --panel-deep: #091018;
   --line: #1e2328;
-  --gold: #c8aa6e;
-  --gold-dark: #785a28;
-  --gold-bright: #f0e6d2;
-  --teal: #0ac8b9;
-  --teal-dark: #005a82;
+  --accent: #c8aa6e;
+  --accent-bright: #f0e6d2;
+  --accent-deep: #785a28;
+  --accent2: #0ac8b9;
+  --accent2-bright: #a5f3ec;
+  --accent2-deep: #005a82;
+  --on-text: #0a1428;
   --text: #a09b8c;
   --text-bright: #f0e6d2;
+  --eyebrow: var(--accent2);
   --heading: "Cinzel", serif;
   --body: "Spectral", serif;
+  --title-grad: linear-gradient(180deg, #f0e6d2 20%, #c8aa6e 60%, #785a28);
+  --card-art-bg: radial-gradient(closest-side, #122c44, #091018);
+  --loader-bg: rgba(1, 10, 19, 0.96);
+  --glow: rgba(200, 170, 110, 0.35);
+  --glow-strong: rgba(200, 170, 110, 0.6);
+  --glow2: rgba(10, 200, 185, 0.4);
+}
 
+.rcg.t-val {
+  --bg: #0f1923;
+  --bg-image:
+    radial-gradient(1100px 520px at 50% -120px, #19303f 0%, transparent 70%),
+    radial-gradient(900px 520px at 85% 115%, rgba(255, 70, 85, 0.16) 0%, transparent 60%);
+  --panel: #1b2733;
+  --panel-deep: #111c26;
+  --line: #2b3a47;
+  --accent: #ff4655;
+  --accent-bright: #ff6e78;
+  --accent-deep: #a3303b;
+  --accent2: #18e3c4;
+  --accent2-bright: #8ff5e7;
+  --accent2-deep: #0c8c79;
+  --on-text: #fff5f5;
+  --text: #8b9ba7;
+  --text-bright: #ece8e1;
+  --eyebrow: var(--accent);
+  --heading: "Oswald", sans-serif;
+  --body: "Inter", "Segoe UI", sans-serif;
+  --title-grad: linear-gradient(180deg, #ece8e1 35%, #ff4655 135%);
+  --card-art-bg: radial-gradient(closest-side, #21323f, #0f1923);
+  --loader-bg: rgba(15, 25, 35, 0.96);
+  --glow: rgba(255, 70, 85, 0.38);
+  --glow-strong: rgba(255, 70, 85, 0.6);
+  --glow2: rgba(24, 227, 196, 0.4);
+}
+
+/* ============ shell ============ */
+
+.rcg {
   position: relative;
   margin: 0;
   min-height: 420px;
@@ -23,30 +72,27 @@
   font-size: 16px;
   line-height: 1.5;
   color: var(--text);
-  background:
-    radial-gradient(1100px 520px at 50% -120px, #0c1f33 0%, transparent 70%),
-    radial-gradient(900px 480px at 85% 110%, rgba(0, 90, 130, 0.25) 0%, transparent 65%),
-    var(--bg);
+  background: var(--bg-image), var(--bg);
 }
 
-.lolgen, .lolgen * { box-sizing: border-box; }
+.rcg, .rcg * { box-sizing: border-box; }
 
 /* ---------- header ---------- */
 
-.lolgen .gen-header {
+.rcg .gen-header {
   text-align: center;
-  padding: 56px 16px 8px;
+  padding: 48px 16px 8px;
 }
 
-.lolgen .eyebrow {
+.rcg .eyebrow {
   margin: 0;
   font-size: 13px;
   letter-spacing: 5px;
   text-transform: uppercase;
-  color: var(--teal);
+  color: var(--eyebrow);
 }
 
-.lolgen h1 {
+.rcg h1 {
   margin: 10px 0 6px;
   padding: 0;
   border: none;
@@ -54,36 +100,45 @@
   font-weight: 700;
   font-size: clamp(28px, 5vw, 48px);
   letter-spacing: 2px;
-  background: linear-gradient(180deg, var(--gold-bright) 20%, var(--gold) 60%, var(--gold-dark));
+  background: var(--title-grad);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-.lolgen .tagline {
+.rcg.t-val h1 {
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+.rcg .tagline {
   margin: 0;
   font-style: italic;
   color: var(--text);
 }
 
+.rcg.t-val .tagline { font-style: normal; letter-spacing: 1px; }
+
 /* ---------- layout / panels ---------- */
 
-.lolgen .gen-main {
+.rcg .gen-main {
   max-width: 960px;
   margin: 0 auto;
   padding: 24px 16px 48px;
 }
 
-.lolgen .panel {
-  border: 1px solid var(--gold-dark);
+.rcg .panel {
+  border: 1px solid var(--accent-deep);
   background: linear-gradient(180deg, var(--panel), var(--panel-deep));
   box-shadow: inset 0 1px 0 rgba(240, 230, 210, 0.06), 0 10px 30px rgba(0, 0, 0, 0.45);
   padding: 22px 24px;
   margin-bottom: 26px;
 }
 
-.lolgen .control-group h2,
-.lolgen .history-head h2 {
+.rcg.t-val .panel { border-left: 3px solid var(--accent); }
+
+.rcg .control-group h2,
+.rcg .history-head h2 {
   margin: 0 0 10px;
   padding: 0;
   border: none;
@@ -92,12 +147,12 @@
   font-weight: 600;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--accent);
 }
 
-.lolgen .controls > .control-group + .control-group { margin-top: 20px; }
+.rcg .controls > .control-group + .control-group { margin-top: 20px; }
 
-.lolgen .control-grid {
+.rcg .control-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 18px 28px;
@@ -106,21 +161,21 @@
 
 /* ---------- chips ---------- */
 
-.lolgen .chips {
+.rcg .chips {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-.lolgen .chip {
+.rcg .chip {
   font-family: var(--body);
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--text);
-  background: rgba(1, 10, 19, 0.5);
-  border: 1px solid var(--gold-dark);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--accent-deep);
   border-radius: 0;
   box-shadow: none;
   padding: 8px 14px;
@@ -128,31 +183,31 @@
   transition: color 0.15s, border-color 0.15s, background 0.15s, box-shadow 0.15s;
 }
 
-.lolgen .chip:hover {
+.rcg .chip:hover {
   color: var(--text-bright);
-  border-color: var(--gold);
+  border-color: var(--accent);
 }
 
-.lolgen .chip.on {
-  color: #0a1428;
-  background: linear-gradient(180deg, var(--gold-bright), var(--gold) 70%);
-  border-color: var(--gold-bright);
-  box-shadow: 0 0 12px rgba(200, 170, 110, 0.35);
+.rcg .chip.on {
+  color: var(--on-text);
+  background: linear-gradient(180deg, var(--accent-bright), var(--accent) 70%);
+  border-color: var(--accent-bright);
+  box-shadow: 0 0 12px var(--glow);
 }
 
-.lolgen .chip.all { margin-right: 8px; }
+.rcg .chip.all { margin-right: 8px; }
 
-.lolgen .chip.all.on {
-  background: linear-gradient(180deg, #a5f3ec, var(--teal) 70%);
-  border-color: #c9faf5;
-  box-shadow: 0 0 12px rgba(10, 200, 185, 0.4);
+.rcg .chip.all.on {
+  background: linear-gradient(180deg, var(--accent2-bright), var(--accent2) 70%);
+  border-color: var(--accent2-bright);
+  box-shadow: 0 0 12px var(--glow2);
 }
 
-.lolgen .seg .chip { min-width: 44px; text-align: center; }
+.rcg .seg .chip { min-width: 44px; text-align: center; }
 
 /* ---------- toggles ---------- */
 
-.lolgen .toggles {
+.rcg .toggles {
   display: flex;
   flex-wrap: wrap;
   gap: 10px 32px;
@@ -161,7 +216,7 @@
   border-top: 1px solid var(--line);
 }
 
-.lolgen .toggle {
+.rcg .toggle {
   display: flex;
   align-items: center;
   gap: 9px;
@@ -170,72 +225,72 @@
   user-select: none;
 }
 
-.lolgen .toggle:hover { color: var(--text-bright); }
+.rcg .toggle:hover { color: var(--text-bright); }
 
-.lolgen .toggle input {
+.rcg .toggle input {
   width: 16px;
   height: 16px;
   margin: 0;
-  accent-color: var(--gold);
+  accent-color: var(--accent);
   cursor: pointer;
 }
 
 /* ---------- spin button ---------- */
 
-.lolgen .spin-zone {
+.rcg .spin-zone {
   text-align: center;
   margin: 34px 0 30px;
 }
 
-.lolgen #spinBtn {
+.rcg .spin-btn {
   font-family: var(--heading);
   font-weight: 700;
   font-size: 24px;
   letter-spacing: 8px;
   text-transform: uppercase;
   text-indent: 8px; /* visually re-centers letter-spaced text */
-  color: #0a1428;
+  color: var(--on-text);
   width: min(420px, 100%);
   padding: 18px 10px;
   cursor: pointer;
-  border: 1px solid rgba(240, 230, 210, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 0;
-  background: linear-gradient(180deg, var(--gold-bright), var(--gold) 45%, var(--gold-dark));
-  box-shadow: 0 0 28px rgba(200, 170, 110, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  background: linear-gradient(180deg, var(--accent-bright), var(--accent) 45%, var(--accent-deep));
+  box-shadow: 0 0 28px var(--glow), inset 0 1px 0 rgba(255, 255, 255, 0.45);
   transition: filter 0.15s, box-shadow 0.15s, transform 0.05s;
 }
 
-.lolgen #spinBtn:hover:not(:disabled) {
+.rcg .spin-btn:hover:not(:disabled) {
   filter: brightness(1.12);
-  box-shadow: 0 0 40px rgba(200, 170, 110, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 40px var(--glow-strong), inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
-.lolgen #spinBtn:active:not(:disabled) { transform: translateY(2px); }
+.rcg .spin-btn:active:not(:disabled) { transform: translateY(2px); }
 
-.lolgen #spinBtn:disabled {
+.rcg .spin-btn:disabled {
   filter: grayscale(0.7) brightness(0.6);
   cursor: not-allowed;
 }
 
-.lolgen #spinBtn.shake { animation: lolgen-shake 0.4s; }
+.rcg .spin-btn.shake { animation: rcg-shake 0.4s; }
 
-@keyframes lolgen-shake {
+@keyframes rcg-shake {
   20% { transform: translateX(-7px); }
   40% { transform: translateX(6px); }
   60% { transform: translateX(-4px); }
   80% { transform: translateX(3px); }
 }
 
-.lolgen #statusMsg {
+.rcg .status-msg {
   min-height: 1.4em;
   margin: 14px 0 0;
   font-style: italic;
-  color: var(--gold);
+  color: var(--accent);
 }
 
 /* ---------- result cards ---------- */
 
-.lolgen .results {
+.rcg .results {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -243,23 +298,25 @@
   margin-bottom: 30px;
 }
 
-.lolgen .card {
+.rcg .card {
   width: 230px;
-  border: 1px solid var(--gold-dark);
+  border: 1px solid var(--accent-deep);
   background: var(--panel-deep);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
 }
 
-.lolgen .results[data-count="1"] .card { width: 290px; }
+.rcg.t-val .card { border-top: 2px solid var(--accent); }
 
-.lolgen .card-art {
+.rcg .results[data-count="1"] .card { width: 290px; }
+
+.rcg .card-art {
   aspect-ratio: 308 / 430;
   overflow: hidden;
-  border-bottom: 1px solid var(--gold-dark);
-  background: radial-gradient(closest-side, #122c44, var(--panel-deep));
+  border-bottom: 1px solid var(--accent-deep);
+  background: var(--card-art-bg);
 }
 
-.lolgen .card-art img {
+.rcg .card-art img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -267,9 +324,11 @@
   display: block;
 }
 
+.rcg.t-val .card-art img { object-fit: contain; object-position: center bottom; }
+
 /* spinning state */
 
-.lolgen .spin-stage {
+.rcg .spin-stage {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -277,37 +336,38 @@
   gap: 18px;
 }
 
-.lolgen .spin-stage .spin-icon {
+.rcg .spin-stage .spin-icon {
   width: 110px;
   height: 110px;
-  border: 2px solid var(--gold);
-  box-shadow: 0 0 22px rgba(10, 200, 185, 0.35);
-  animation: lolgen-pulse 1s infinite alternate;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 22px var(--glow);
+  animation: rcg-pulse 1s infinite alternate;
 }
 
-@keyframes lolgen-pulse {
-  from { box-shadow: 0 0 12px rgba(10, 200, 185, 0.25); }
-  to   { box-shadow: 0 0 30px rgba(10, 200, 185, 0.6); }
+@keyframes rcg-pulse {
+  from { box-shadow: 0 0 12px var(--glow); }
+  to   { box-shadow: 0 0 30px var(--glow-strong); }
 }
 
-.lolgen .spin-stage .spin-name {
+.rcg .spin-stage .spin-name {
   margin: 0;
   font-family: var(--heading);
   font-size: 17px;
-  color: var(--gold-bright);
+  color: var(--accent-bright);
   text-align: center;
   padding: 0 10px;
 }
 
 /* revealed state */
 
-.lolgen .card.revealed { animation: lolgen-reveal 0.5s ease-out; }
+.rcg .card.revealed { animation: rcg-reveal 0.5s ease-out; }
 
-@keyframes lolgen-reveal {
+@keyframes rcg-reveal {
   from {
     transform: scale(0.95);
     filter: brightness(2.2) saturate(0.2);
-    box-shadow: 0 0 50px rgba(200, 170, 110, 0.85);
+    box-shadow: 0 0 50px var(--glow-strong);
   }
   to {
     transform: scale(1);
@@ -316,46 +376,61 @@
   }
 }
 
-.lolgen .card-info { padding: 14px 16px 16px; }
+.rcg .card-info { padding: 14px 16px 16px; }
 
-.lolgen .card-info h3 {
+.rcg .card-info h3 {
   margin: 0;
   padding: 0;
   border: none;
   font-family: var(--heading);
   font-size: 21px;
   font-weight: 700;
-  color: var(--gold-bright);
+  color: var(--accent-bright);
 }
 
-.lolgen .card-title {
+.rcg.t-val .card-info h3 { text-transform: uppercase; letter-spacing: 1px; }
+
+.rcg .card-title {
   margin: 2px 0 10px;
   font-style: italic;
   font-size: 14px;
   color: var(--text);
 }
 
-.lolgen .card-roles {
+.rcg.t-val .card-title { font-style: normal; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; }
+
+.rcg .card-roles {
   display: block;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--accent);
   margin-bottom: 3px;
 }
 
-.lolgen .card-tags {
+.rcg .card-tags {
   display: block;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: var(--teal);
+  color: var(--accent2);
   margin-bottom: 10px;
 }
 
-.lolgen .card-diff {
+.rcg .card-desc {
+  margin: 8px 0 0;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--text);
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.rcg .card-diff {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -364,7 +439,7 @@
   text-transform: uppercase;
 }
 
-.lolgen .diff-bar {
+.rcg .diff-bar {
   flex: 1;
   height: 6px;
   background: var(--line);
@@ -372,23 +447,23 @@
   overflow: hidden;
 }
 
-.lolgen .diff-bar i {
+.rcg .diff-bar i {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, var(--teal-dark), var(--teal));
+  background: linear-gradient(90deg, var(--accent2-deep), var(--accent2));
 }
 
 /* ---------- history ---------- */
 
-.lolgen .history-head {
+.rcg .history-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.lolgen .history-head h2 { margin-bottom: 0; }
+.rcg .history-head h2 { margin-bottom: 0; }
 
-.lolgen .ghost-btn {
+.rcg .ghost-btn {
   font-family: var(--body);
   font-size: 11px;
   font-weight: 600;
@@ -404,29 +479,30 @@
   transition: color 0.15s, border-color 0.15s;
 }
 
-.lolgen .ghost-btn:hover { color: var(--text-bright); border-color: var(--gold-dark); }
+.rcg .ghost-btn:hover { color: var(--text-bright); border-color: var(--accent-deep); }
 
-.lolgen .history {
+.rcg .history {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 14px;
 }
 
-.lolgen .history img {
+.rcg .history img {
   width: 44px;
   height: 44px;
-  border: 1px solid var(--gold-dark);
+  object-fit: cover;
+  border: 1px solid var(--accent-deep);
   display: block;
   transition: transform 0.12s, border-color 0.12s;
 }
 
-.lolgen .history img:hover {
+.rcg .history img:hover {
   transform: scale(1.15);
-  border-color: var(--gold);
+  border-color: var(--accent);
 }
 
-.lolgen .history-empty {
+.rcg .history-empty {
   margin: 0;
   font-style: italic;
   font-size: 14px;
@@ -434,7 +510,7 @@
 
 /* ---------- loader (covers the widget while data loads) ---------- */
 
-.lolgen #loader {
+.rcg .gen-loader {
   position: absolute;
   inset: 0;
   z-index: 50;
@@ -443,46 +519,85 @@
   align-items: center;
   justify-content: center;
   gap: 22px;
-  background: rgba(1, 10, 19, 0.96);
+  background: var(--loader-bg);
   transition: opacity 0.4s;
 }
 
-.lolgen #loader.hidden { opacity: 0; pointer-events: none; }
+.rcg .gen-loader.hidden { opacity: 0; pointer-events: none; }
 
-.lolgen #loader p {
+.rcg .gen-loader p {
   margin: 0;
   font-style: italic;
-  color: var(--gold);
+  color: var(--accent);
   text-align: center;
   padding: 0 20px;
 }
 
-.lolgen #loader .retry { margin-top: 4px; }
+.rcg .gen-loader .retry { margin-top: 4px; }
 
-.lolgen .hex-spinner {
+.rcg .hex-spinner {
   width: 54px;
   height: 54px;
-  border: 3px solid var(--gold-dark);
-  border-top-color: var(--gold-bright);
+  border: 3px solid var(--accent-deep);
+  border-top-color: var(--accent-bright);
   border-radius: 50%;
-  animation: lolgen-spin 0.9s linear infinite;
+  animation: rcg-spin 0.9s linear infinite;
 }
 
-@keyframes lolgen-spin { to { transform: rotate(360deg); } }
+@keyframes rcg-spin { to { transform: rotate(360deg); } }
 
 /* ---------- footer ---------- */
 
-.lolgen .gen-footer {
+.rcg .gen-footer {
   text-align: center;
   font-size: 12.5px;
   color: #5b5a56;
   padding: 0 16px 40px;
 }
 
-.lolgen .gen-footer p { margin: 4px 0; }
+.rcg .gen-footer p { margin: 4px 0; }
 
 @media (max-width: 560px) {
-  .lolgen .panel { padding: 18px 16px; }
-  .lolgen .gen-header { padding-top: 36px; }
-  .lolgen .results[data-count="1"] .card { width: 250px; }
+  .rcg .panel { padding: 18px 16px; }
+  .rcg .gen-header { padding-top: 28px; }
+  .rcg .results[data-count="1"] .card { width: 250px; }
+}
+
+/* ============ game tabs (page-level, above both generators) ============ */
+
+.rcg-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  background: #05080c;
+  border-bottom: 1px solid #1a1f26;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.rcg-tab {
+  font-family: "Oswald", "Cinzel", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #6b7480;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding: 16px 26px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.rcg-tab:hover { color: #cdd3da; background: rgba(255, 255, 255, 0.03); }
+
+.rcg-tab[data-theme="t-lol"].is-active { color: #f0e6d2; border-bottom-color: #c8aa6e; }
+.rcg-tab[data-theme="t-val"].is-active { color: #ece8e1; border-bottom-color: #ff4655; }
+
+@media (max-width: 460px) {
+  .rcg-tab { padding: 14px 14px; font-size: 13px; letter-spacing: 1.5px; }
 }
